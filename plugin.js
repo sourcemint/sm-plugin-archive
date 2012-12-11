@@ -10,6 +10,12 @@ exports.for = function(API, plugin) {
             var locations = {
                 "pointer": locator.url
             };
+            if (/\.zip$/.test(locator.url)) {
+                locations.zip = locator.url;
+            } else
+            if (/(\.tgz|\.tar\.gz)$/.test(locator.url)) {
+                locations.tar = locator.url;
+            }
             return (type)?locations[type]:locations;
         }
 
