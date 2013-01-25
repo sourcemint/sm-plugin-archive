@@ -1,7 +1,7 @@
 
 exports.for = function(API, plugin) {
 
-    plugin.resolveLocator = function(locator, options) {
+    plugin.resolveLocator = function(locator, options, callback) {
         var self = this;
 
         if (!locator.url) {
@@ -21,6 +21,6 @@ exports.for = function(API, plugin) {
             return (type)?locations[type]:locations;
         }
 
-        return self.API.Q.resolve(locator);
+        return callback(null, locator);
     }
 }
