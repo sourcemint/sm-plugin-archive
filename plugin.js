@@ -8,23 +8,25 @@ exports.for = function(API, plugin) {
             locator.url = locator.descriptor.pointer;
         }
 
-        locator.getLocation = function(type) {
-            var locations = {
-                "pointer": locator.url
-            };
-            if (/\.zip$/.test(locator.url)) {
-                locations.archive = locations.zip = locator.url;
-            } else
-            if (/(\.tgz|\.tar\.gz)$/.test(locator.url)) {
-                locations.archive = locations.gzip = locator.url;
-            } else
-            if (/(\.tar\.bz2)$/.test(locator.url)) {
-                locations.archive = locations.bzip = locator.url;
-            } else
-            if (/(\.7z)$/.test(locator.url)) {
-                locations.archive = locations["7zip"] = locator.url;
+        if (!locator.hasOwnProperty("getLocation")) {
+            locator.getLocation = function(type) {
+                var locations = {
+                    "pointer": locator.url
+                };
+                if (/\.zip$/.test(locator.url)) {
+                    locations.archive = locations.zip = locator.url;
+                } else
+                if (/(\.tgz|\.tar\.gz)$/.test(locator.url)) {
+                    locations.archive = locations.gzip = locator.url;
+                } else
+                if (/(\.tar\.bz2)$/.test(locator.url)) {
+                    locations.archive = locations.bzip = locator.url;
+                } else
+                if (/(\.7z)$/.test(locator.url)) {
+                    locations.archive = locations["7zip"] = locator.url;
+                }
+                return (type)?locations[type]:locations;
             }
-            return (type)?locations[type]:locations;
         }
 
         return callback(null, locator);
