@@ -13,16 +13,16 @@ exports.for = function(API, plugin) {
                 "pointer": locator.url
             };
             if (/\.zip$/.test(locator.url)) {
-                locations.zip = locator.url;
+                locations.archive = locations.zip = locator.url;
             } else
             if (/(\.tgz|\.tar\.gz)$/.test(locator.url)) {
-                locations.gzip = locator.url;
+                locations.archive = locations.gzip = locator.url;
             } else
             if (/(\.tar\.bz2)$/.test(locator.url)) {
-                locations.bzip = locator.url;
+                locations.archive = locations.bzip = locator.url;
             } else
             if (/(\.7z)$/.test(locator.url)) {
-                locations["7zip"] = locator.url;
+                locations.archive = locations["7zip"] = locator.url;
             }
             return (type)?locations[type]:locations;
         }
