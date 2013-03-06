@@ -13,10 +13,18 @@ exports.for = function(API, plugin) {
                 var locations = {
                     "pointer": locator.url
                 };
-                if (/\.zip$/.test(locator.url)) {
+                if (
+                    /\.zip$/.test(locator.url) ||
+                    // HACK: We should ask all plugins to match uri.
+                    /github\.com\/[^\/]*\/[^\/]*\/zipball\//.test(locator.url)
+                ) {
                     locations.archive = locations.zip = locator.url;
                 } else
-                if (/(\.tgz|\.tar\.gz)$/.test(locator.url)) {
+                if (
+                    /(\.tgz|\.tar\.gz)$/.test(locator.url) ||
+                    // HACK: We should ask all plugins to match uri.
+                    /github\.com\/[^\/]*\/[^\/]*\/tarball\//.test(locator.url)
+                ) {
                     locations.archive = locations.gzip = locator.url;
                 } else
                 if (/(\.tar\.bz2)$/.test(locator.url)) {
